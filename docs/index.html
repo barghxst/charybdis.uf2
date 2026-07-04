@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bilingual EN/RU ZMK layout for a wireless Charybdis with a PMW3610 trackball — interactive layer reference.">
+<title>Charybdis · layout reference</title>
+<style>
+  .hero{display:block;width:100%;border-radius:16px;margin:0 0 24px}
+  :root{
+    --bg:#EDEAE2; --panel:#F5F3EC; --key:#FBFAF6; --key-edge:#D9D5C7; --key-depth:#CDC8B7;
+    --ink:#26251F; --mut:#7A776B; --faint:#A6A294;
+    --ru:#B93B21; --hold:#5A6478;
+    --mono:ui-monospace,"Cascadia Mono","JetBrains Mono",Consolas,monospace;
+    --sans:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+  }
+  html{background:var(--bg)}
+  body{font-family:var(--sans);color:var(--ink);margin:0}
+  .wrap{max-width:1020px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:26px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+  .sub{color:var(--mut);font-size:15px;max-width:68ch;line-height:1.65;margin:0 0 18px}
+  .sub b{color:var(--ink);font-weight:600}
+  .legendbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 26px;font-size:12.5px;color:var(--mut)}
+  .lg{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:14px;border-radius:4px;border:1px solid var(--key-edge);background:var(--key);display:inline-block}
+  .sw.ru{background:var(--ru);border-color:var(--ru)}
+  .sw.hd{background:var(--hold);border-color:var(--hold)}
+  nav{padding:10px 0;margin:0 0 8px;display:flex;gap:8px;flex-wrap:wrap}
+  nav a{font-family:var(--mono);font-size:12px;text-decoration:none;color:var(--ink);border:1px solid var(--key-edge);background:var(--panel);border-radius:999px;padding:4px 12px}
+  nav a:hover,nav a:focus-visible{border-color:var(--ink);outline:none}
+  section{margin:44px 0 0}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 4px}
+  h2{font-size:19px;font-weight:600;margin:0 0 8px}
+  .note{color:var(--mut);font-size:14px;line-height:1.65;max-width:70ch;margin:10px 0 0}
+  .note b{color:var(--ink);font-weight:600}
+  .note code{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--panel);border-radius:5px;padding:1px 5px}
+  .boardbox{overflow-x:auto;padding:64px 0 2px;margin-top:-56px}
+  .board{min-width:840px;background:var(--panel);border:1px solid var(--key-edge);border-radius:16px;padding:26px 22px 20px}
+  .halves{display:flex;gap:46px;justify-content:center}
+  .half{display:grid;grid-template-columns:repeat(6,60px);gap:7px}
+  .thumbs{display:flex;gap:46px;justify-content:center;margin-top:10px}
+  .tcl{display:flex;flex-direction:column;gap:7px}
+  .trow{display:flex;gap:7px}
+  .tcl.l{align-items:flex-end;margin-left:120px}
+  .tcl.r{align-items:flex-start;margin-right:120px}
+  .k{position:relative;width:60px;height:56px;background:var(--key);border:1px solid var(--key-edge);border-bottom:3px solid var(--key-depth);border-radius:8px;font-family:var(--mono)}
+  .k .m{position:absolute;top:5px;left:8px;font-size:15px;font-weight:600;line-height:1}
+  .k .sh{position:absolute;top:6px;right:7px;font-size:11px;color:var(--faint);line-height:1}
+  .k .ru{position:absolute;bottom:5px;right:7px;font-size:12px;font-weight:600;color:var(--ru);line-height:1}
+  .k .hd{position:absolute;bottom:5px;left:7px;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--hold);font-weight:600;line-height:1;max-width:46px;white-space:nowrap}
+  .k.wide{width:74px}
+  .k.off{background:transparent;border-style:dashed;border-bottom-width:1px}
+  .k.off .m{color:var(--faint);font-weight:400}
+  .k.tr{background:transparent;border-color:transparent}
+  .k.tr .m{color:var(--faint);font-weight:400;font-size:13px;top:20px;left:26px}
+  .k[data-tip]{cursor:help}
+  .k[data-tip]:hover{z-index:30;border-color:var(--hold)}
+  .k[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:#F3F1EA;font-family:var(--sans);font-size:11.5px;font-weight:400;line-height:1.45;padding:6px 10px;border-radius:8px;width:max-content;max-width:190px;text-align:center;pointer-events:none;white-space:normal}
+  .k[data-tip]:hover::before{content:"";position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink);pointer-events:none}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
+  .card{background:var(--panel);border:1px solid var(--key-edge);border-radius:14px;padding:16px 18px}
+  .card h3{font-size:15px;font-weight:600;margin:0 0 8px}
+  .card p,.card li{font-size:13.5px;color:var(--mut);line-height:1.6;margin:0}
+  .card code{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--bg);border-radius:5px;padding:1px 5px}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:2px;background:var(--bg);border:1px solid var(--key-edge);color:var(--mut)}
+  @media (prefers-reduced-motion: no-preference){ nav a{transition:border-color .15s} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="hero" src="assets/keyboard.jpg" alt="Charybdis — mint keycaps, red trackball" onerror="this.remove()">
+  <h1>Charybdis — bilingual layout</h1>
+  <p class="sub">56 keys + PMW3610 trackball, ZMK, wireless. One layout for <b>Russian and English</b> — code included — tuned for <b>vim</b> and <b>Hyprland</b>.</p>
+  <div class="cards" style="margin:0 0 26px">
+    <div class="card"><h3>Home-row mods</h3><p>GACS: holding A/S/D/F (mirrored on the right) gives Gui/Alt/Ctrl/Shift, a tap types the letter. Ctrl and the vim leader <code>\</code> are plain thumb keys.</p></div>
+    <div class="card"><h3>Bilingual without magic</h3><p>The firmware never knows the OS language: the Sym layer is one, and ЙЦУКЕН itself turns it into Russian punctuation. The language key is just Super+Space.</p></div>
+    <div class="card"><h3>Layers on thumbs</h3><p>Sym on Space, Num on the Lang key, Nav on 49, Hypr on Enter — frequent things under the thumbs, rare things (Fn, toggles) further out.</p></div>
+    <div class="card"><h3>Trackball</h3><p>Auto mouse layer on ball movement, scroll/snipe via hold or toggle, and the right half doubles as a one-hand video remote.</p></div>
+  </div>
+
+  <div class="legendbar">
+    <span class="lg"><span class="sw"></span> key — <b>hover for details</b></span>
+    <span class="lg"><span class="sw ru"></span> red legend — what it types in Russian</span>
+    <span class="lg"><span class="sw hd"></span> bottom label — hold / second function</span>
+    <span class="lg">∙ — transparent (falls through)</span>
+  </div>
+
+  <nav>
+    <a href="#base">0 Base</a><a href="#nav-l">1 Nav</a><a href="#num">2 Num</a><a href="#sym">3 Sym</a><a href="#fn">4 Fn</a><a href="#ball">5·6·7 Trackball</a><a href="#hypr">8 Hypr</a><a href="#onehand">9 OneHand</a>
+  </nav>
+
+  <section id="base">
+    <p class="eyebrow">layer 0 · always on</p>
+    <h2>Base</h2>
+    <div class="boardbox"><div class="board" id="b-base"></div></div>
+    <p class="note">Standard letters — Russian types like on any keyboard. The power is in the holds: mods on the home row, layers on the thumbs.</p>
+  </section>
+
+  <section id="nav-l">
+    <p class="eyebrow">layer 1 · hold thumb 49</p>
+    <h2>Nav</h2>
+    <div class="boardbox"><div class="board" id="b-nav"></div></div>
+    <p class="note">Arrows, paging and clipboard under the right hand. Vim scrolling: hold 49 + <code>j</code>.</p>
+  </section>
+
+  <section id="num">
+    <p class="eyebrow">layer 2 · hold the Lang key</p>
+    <h2>Num</h2>
+    <div class="boardbox"><div class="board" id="b-num"></div></div>
+    <p class="note">Numpad on the right, operator row on the left, separators on the right pinky.</p>
+  </section>
+
+  <section id="sym">
+    <p class="eyebrow">layer 3 · hold Space · one layer for both languages</p>
+    <h2>Sym</h2>
+    <div class="boardbox"><div class="board" id="b-sym"></div></div>
+    <p class="note">Left home is Russian punctuation (<b>" - ? !</b>), right home is coding (<b>= ( ) : ;</b>), brackets stacked on two fingers. Nothing reachable from base is duplicated here.</p>
+  </section>
+
+  <section id="fn">
+    <p class="eyebrow">layer 4 · hold thumb 51</p>
+    <h2>Fn</h2>
+    <div class="boardbox"><div class="board" id="b-fn"></div></div>
+    <p class="note">Bluetooth and machine picker on top, F-grid on the right, boot/reset in the bottom corners.</p>
+  </section>
+
+  <section id="ball">
+    <p class="eyebrow">layers 5 · 6 · 7 · trackball</p>
+    <h2>Mouse / Scroll / Snipe</h2>
+    <div class="boardbox"><div class="board" id="b-mouse"></div></div>
+    <p class="note">Mouse kicks in by itself when the ball moves and fades after about half a second of rest. Clicks on both hands, D/F hold the modes.</p>
+    <div class="cards">
+      <div class="card"><h3>Scroll (6)</h3><p>The ball scrolls the wheel. Long-term — the <code>Scrl</code> toggle on the base top row; momentary — hold F while the ball is moving.</p></div>
+      <div class="card"><h3>Snipe (7)</h3><p>Slow cursor for pixel-perfect hits. Long-term — the <code>Snipe</code> toggle; momentary — hold D.</p></div>
+    </div>
+  </section>
+
+  <section id="hypr">
+    <p class="eyebrow">layer 8 · hold Enter <span class="tag">work in progress</span></p>
+    <h2>Hypr</h2>
+    <div class="boardbox"><div class="board" id="b-hypr"></div></div>
+    <p class="note">Every key sends a ready-made <b>Super+…</b>: workspaces as a numpad on the left, hjkl focus on the right, window move — Shift on Lang, screenshot — Space.</p>
+  </section>
+
+  <section id="onehand">
+    <p class="eyebrow">layer 9 · toggle: Bspc+Enter chord</p>
+    <h2>OneHand — remote</h2>
+    <div class="boardbox"><div class="board" id="b-onehand"></div></div>
+    <p class="note">The right half as a couch remote for video. Enter and exit — the same chord of the two right thumbs (Bspc+Enter from base, Esc+Space from inside).</p>
+  </section>
+</div>
+
+<script>
+const K=(m,o={})=>({m,...o});
+const NONE={m:'—',c:'off'}, TR={m:'∙',c:'tr'};
+function key(d){
+  const el=document.createElement('div');
+  el.className='k'+(d.c?' '+d.c:'')+(d.w?' wide':'');
+  el.innerHTML=(d.m?`<span class="m">${d.m}</span>`:'')+(d.s?`<span class="sh">${d.s}</span>`:'')+(d.r?`<span class="ru">${d.r}</span>`:'')+(d.h?`<span class="hd">${d.h}</span>`:'');
+  if(d.t) el.setAttribute('data-tip', d.t);
+  return el;
+}
+const STAG=[10,7,1,0,4,8];
+function board(id,rows,thumbs){
+  const root=document.getElementById(id);
+  const halves=document.createElement('div');halves.className='halves';
+  const L=document.createElement('div');L.className='half';
+  const R=document.createElement('div');R.className='half';
+  rows.forEach(row=>{
+    row.slice(0,6).forEach((d,i)=>{const e=key(d);e.style.transform=`translateY(${STAG[i]}px)`;L.appendChild(e);});
+    row.slice(6,12).forEach((d,i)=>{const e=key(d);e.style.transform=`translateY(${STAG[5-i]}px)`;R.appendChild(e);});
+  });
+  halves.appendChild(L);halves.appendChild(R);root.appendChild(halves);
+  const T=document.createElement('div');T.className='thumbs';
+  const tl=document.createElement('div');tl.className='tcl l';
+  const tr_=document.createElement('div');tr_.className='tcl r';
+  const mk=(arr)=>{const r=document.createElement('div');r.className='trow';arr.forEach(d=>r.appendChild(key(d)));return r;};
+  tl.appendChild(mk(thumbs.lu));tl.appendChild(mk(thumbs.ll));
+  tr_.appendChild(mk(thumbs.ru));tr_.appendChild(mk(thumbs.rl));
+  T.appendChild(tl);T.appendChild(tr_);root.appendChild(T);
+}
+
+board('b-base',[
+ [K('`',{s:'~',r:'ё',t:'Backtick; Shift — tilde. Russian: ё/Ё'}),
+  K('Prev',{t:'Media: previous track'}),K('Play',{t:'Media: play / pause'}),K('Next',{t:'Media: next track'}),
+  K('Snipe',{h:'toggle',t:'Toggle the Snipe layer: slow cursor. Tap again to turn off'}),
+  K('Scrl',{h:'toggle',t:'Toggle the Scroll layer: ball scrolls the wheel. Tap again to turn off'}),
+  K('PrtSc',{t:'Print Screen — screenshot'}),K('Mute',{t:'Mute'}),K('Vol−',{t:'Volume down'}),K('Vol+',{t:'Volume up'}),
+  K('F12',{t:'Plain F12 (dropdown terminal etc.)'}),K(']',{s:'}',r:'ъ',t:'Bracket ]; Shift — }. Russian: ъ'})],
+ [K('Tab'),K('Q',{r:'й'}),K('W',{r:'ц'}),K('E',{r:'у'}),K('R',{r:'к'}),K('T',{r:'е'}),
+  K('Y',{r:'н'}),K('U',{r:'г'}),K('I',{r:'ш'}),K('O',{r:'щ'}),K('P',{r:'з'}),K('[',{s:'{',r:'х',t:'Bracket [; Shift — {. Russian: х'})],
+ [K('Esc',{t:'Esc — vim'}),
+  K('A',{r:'ф',h:'gui',t:'Hold — Gui/Super (the Hyprland mod)'}),K('S',{r:'ы',h:'alt',t:'Hold — Alt'}),K('D',{r:'в',h:'ctrl',t:'Hold — Ctrl'}),K('F',{r:'а',h:'shift',t:'Hold — Shift'}),K('G',{r:'п'}),
+  K('H',{r:'р'}),K('J',{r:'о',h:'shift',t:'Hold — Shift'}),K('K',{r:'л',h:'ctrl',t:'Hold — Ctrl'}),K('L',{r:'д',h:'alt',t:'Hold — Alt'}),K(';',{s:':',r:'ж',h:'gui',t:'Semicolon; Shift — colon; hold — Gui. Russian: ж'}),K("'",{s:'"',r:'э',t:'Quote; Shift — double quote. Russian: э'})],
+ [NONE,K('Z',{r:'я'}),K('X',{r:'ч'}),K('C',{r:'с'}),K('V',{r:'м'}),K('B',{r:'и'}),
+  K('N',{r:'т'}),K('M',{r:'ь'}),K(',',{s:'<',r:'б',t:'Comma; Shift — <. Russian: б'}),K('.',{s:'>',r:'ю',t:'Period; Shift — >. Russian: ю'}),K('/',{s:'?',r:'. ,',t:'Slash; Shift — ?. Russian: tap — period, Shift — comma'}),NONE],
+],{
+ lu:[K('Ctrl',{t:'Plain Ctrl — vim chords with zero hold-tap latency'}),
+     K('⇧ 1·2·3',{h:'nav',t:'Hold — Nav layer. Tap — sticky Shift, double tap — Caps Word, triple — Caps Lock'}),
+     K('\\',{h:'leader',t:'Backslash — the default vim leader; Shift — |. Plain key: press at any speed'})],
+ ll:[K('Space',{h:'sym',w:1,t:'Tap — space; hold — Sym layer. Tap-then-hold repeats space'}),
+     K('Lang',{h:'num',w:1,t:'Tap — Super+Space (OS language switch); hold — Num layer'})],
+ ru:[K('Fn',{h:'hold',t:'Hold — Fn layer: F-keys, bluetooth, service'}),K('Bspc',{h:'⇧ = del',t:'Backspace; Shift — Delete. Chord with Enter — the OneHand remote'})],
+ rl:[K('Enter',{h:'hypr',w:1,t:'Tap — Enter; hold — Hypr layer (Super binds). Chord with Bspc — the OneHand remote'})]
+});
+
+board('b-nav',[
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,TR,TR,TR,TR, K('Home'),K('PgDn',{t:'Page down'}),K('PgUp',{t:'Page up'}),K('End'),TR,TR],
+ [TR,TR,TR,TR,TR,TR, K('←'),K('↓',{t:'Arrows with OS auto-repeat — hold to scroll'}),K('↑'),K('→'),TR,TR],
+ [TR,TR,TR,TR,TR,TR, K('Undo',{t:'Ctrl+Z'}),K('Cut',{t:'Ctrl+X'}),K('Copy',{t:'Ctrl+C'}),K('Paste',{t:'Ctrl+V'}),TR,TR]
+],{lu:[TR,TR,TR],ll:[TR,TR],ru:[TR,TR],rl:[TR]});
+
+board('b-num',[
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,TR,TR,TR,TR, TR,K('7'),K('8'),K('9'),TR,TR],
+ [TR,K('/',{t:'Divide'}),K('*',{t:'Multiply'}),K('+',{t:'Plus'}),K('-',{t:'Minus'}),K('=',{t:'Equals'}), K('0'),K('4'),K('5'),K('6'),K('.',{t:'Decimal point. For a Russian decimal comma use base (Shift+/)'}),TR],
+ [TR,TR,TR,K('_',{h:'under',t:'Underscore — snake_case among digits'}),K(':',{t:'Colon — time, ranges'}),TR, TR,K('1'),K('2'),K('3'),K(',',{t:'Comma — lists among digits'}),TR]
+],{lu:[TR,TR,TR],ll:[TR,TR],ru:[TR,TR],rl:[TR]});
+
+board('b-sym',[
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,NONE,NONE,NONE,NONE,K('#',{r:'№',t:'Hash. Russian: №'}), K('%',{r:'%',t:'Percent — same in both languages'}),K('{',{t:'Opening brace — English only'}),K('}',{t:'Closing brace — English only'}),K('*',{t:'Asterisk — same in both'}),K('+',{t:'Plus — same in both'}),TR],
+ [TR,K('@',{r:'"',t:'At sign. Russian: " (quote)'}),K('-',{r:'-',t:'Hyphen/minus — same in both'}),K('&',{r:'?',t:'Ampersand. Russian: ? (question mark)'}),K('!',{r:'!',t:'Exclamation — same in both'}),K('_',{h:'under',t:'Underscore — snake_case'}), K('=',{t:'Equals'}),K('(',{r:'(',t:'Opening paren — same in both'}),K(')',{r:')',t:'Closing paren — same in both'}),K('^',{r:':',t:'Caret. Russian: : (colon)'}),K('$',{r:';',t:'Dollar. Russian: ; (semicolon)'}),TR],
+ [TR,NONE,NONE,NONE,NONE,NONE, NONE,K('[',{t:'Opening bracket — English only'}),K(']',{t:'Closing bracket — English only'}),NONE,NONE,TR]
+],{lu:[TR,TR,TR],ll:[TR,TR],ru:[TR,TR],rl:[TR]});
+
+board('b-fn',[
+ [K('BT clr',{t:'Forget the current BT host'}),K('Win',{h:'bt0',t:'BT profile 0 — the Windows machine'}),K('Lin',{h:'bt1',t:'BT profile 1 — the Linux machine'}),K('BT 2',{t:'Spare profile'}),K('BT 3',{t:'Spare profile'}),K('BT 4',{t:'Spare profile'}), TR,TR,TR,TR,K('BT clr all',{t:'Forget ALL BT hosts — careful'}),K('USB/BT',{t:'Switch output: wire or bluetooth'})],
+ [TR,TR,TR,TR,TR,TR, TR,K('F7'),K('F8'),K('F9'),K('F10'),K('Bri+',{t:'Brighter'})],
+ [TR,TR,TR,TR,TR,TR, TR,K('F4'),K('F5'),K('F6'),K('F11'),K('Bri−',{t:'Dimmer'})],
+ [K('Boot',{t:'Left half bootloader — for flashing'}),TR,TR,TR,TR,K('Reset',{t:'Reboot the left half'}), K('Reset',{t:'Reboot the right half'}),K('F1'),K('F2'),K('F3'),K('F12'),K('Boot',{t:'Right half bootloader — for flashing'})]
+],{lu:[TR,TR,TR],ll:[TR,TR],ru:[TR,TR],rl:[TR]});
+
+board('b-mouse',[
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,TR,K('Snipe',{h:'hold',t:'Hold — slow cursor while the right hand is on the ball'}),K('Scrl',{h:'hold',t:'Hold — the ball scrolls while the right hand is on the ball'}),TR, TR,TR,TR,TR,K('LMB',{t:'Left click — same hand as the ball'}),K('RMB',{t:'Right click — same hand as the ball'})],
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR]
+],{lu:[K('MB4',{h:'back',t:'Browser back'}),K('MCLK',{h:'wheel',t:'Middle click — close tab, open link in new'}),K('MB5',{h:'fwd',t:'Browser forward'})],ll:[K('LMB',{w:1,t:'Left click'}),K('RMB',{w:1,t:'Right click'})],ru:[TR,TR],rl:[TR]});
+
+board('b-hypr',[
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,K('7',{t:'Workspace 7 (Super+7)'}),K('8',{t:'Workspace 8'}),K('9',{t:'Workspace 9'}),TR, TR,TR,TR,TR,TR,TR],
+ [TR,TR,K('4',{t:'Workspace 4'}),K('5',{t:'Workspace 5'}),K('6',{t:'Workspace 6'}),TR, K('H',{t:'Focus left (Super+H)'}),K('J',{t:'Focus down'}),K('K',{t:'Focus up'}),K('L',{t:'Focus right'}),TR,TR],
+ [TR,TR,K('1',{t:'Workspace 1'}),K('2',{t:'Workspace 2'}),K('3',{t:'Workspace 3'}),TR, TR,TR,TR,TR,TR,TR]
+],{lu:[TR,TR,TR],ll:[K('PrtSc',{h:'super',w:1,t:'Super+Print — the Hyprland screenshot bind'}),K('Shift',{h:'move',w:1,t:'Hold with Enter: digit/direction moves the window'})],ru:[TR,TR],rl:[K('Enter',{h:'held',w:1,t:'This key is being held — the layer is active'})]});
+
+board('b-onehand',[
+ [TR,TR,TR,TR,TR,TR, TR,K('F',{h:'full',t:'Fullscreen'}),K('T',{h:'theater',t:'Theater mode'}),K('C',{h:'subs',t:'Subtitles on/off'}),K('M',{h:'mute',t:'Player mute'}),TR],
+ [TR,TR,TR,TR,TR,TR, TR,TR,K('↑',{h:'vol+',t:'Player volume up'}),TR,TR,TR],
+ [TR,TR,TR,TR,TR,TR, TR,K('←',{h:'−5s',t:'Seek back 5 s'}),K('↓',{h:'vol−',t:'Player volume down'}),K('→',{h:'+5s',t:'Seek forward 5 s'}),K('LMB',{t:'Left click — works without moving the ball'}),K('RMB',{t:'Right click — works without moving the ball'})],
+ [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,K('MB4',{h:'back',t:'Browser back — leave the video'}),K('MB5',{h:'fwd',t:'Browser forward'})]
+],{lu:[TR,TR,TR],ll:[TR,TR],ru:[NONE,K('Esc',{h:'toggle²',t:'Esc — exit fullscreen. Chord with Space — remote off'})],rl:[K('Space',{h:'pause',w:1,t:'Play/pause. Chord with Esc — remote off'})]});
+</script>
+</body>
+</html>
