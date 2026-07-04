@@ -16,7 +16,6 @@
 ## Highlights
 
 - **Home-row mods (GACS)** — hold `A/S/D/F` (mirrored on the right) for Gui/Alt/Ctrl/Shift, tap for the letter. Ctrl and the vim leader `\` stay plain thumb keys — zero hold-tap latency where it hurts.
-- **Bilingual without magic** — the firmware never knows the OS language. One Sym layer sends shift-digit scancodes, and the Russian ЙЦУКЕН layout itself turns them into `! " № ; % : ?`. Nothing to desync; the language key is just `Super+Space`.
 - **Layers on thumbs** — Sym on Space, Num on the language key, Nav with a caps tap-dance, Hypr (ready-made `Super+…` binds for Hyprland) on Enter.
 - **Trackball, three modes** — auto mouse layer on ball movement with clicks under both hands, scroll and snipe via hold or toggle.
 - **One-hand remote** — a thumb chord turns the right half into a couch remote for video: seek, volume, fullscreen, clicks.
