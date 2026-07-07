@@ -102,6 +102,16 @@
             quick-tap-ms = <150>;
             bindings = <&mo>, <&caps_td>;
         };
+
+        // Scroll-слой: hold = momentary (пока держишь — трекбол листает),
+        // tap = toggle (вкл/выкл). Используется на OneHand.
+        scrl_ht: scroll_hold_toggle {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&tog>;
+        };
     };
 
     combos {
@@ -115,6 +125,15 @@
             timeout-ms = <50>;
             require-prior-idle-ms = <100>;
             layers = <BASE ONEHAND>;
+        };
+
+        // Hypr: сжать два правых тамба (Full 52 + Flt 55) → блокировка экрана.
+        combo_hypr_lock {
+            bindings = <&kp LG(C)>;
+            key-positions = <52 55>;
+            timeout-ms = <50>;
+            require-prior-idle-ms = <100>;
+            layers = <HYPR>;
         };
 
         // Шаблоны для будущих комбо (раскомментируй и подбери позиции):
@@ -131,9 +150,9 @@
 &kp GRAVE   &kp C_PREV   &kp C_PP     &kp C_NEXT    &tog SNIPE     &tog SCROLL &kp PRINTSCREEN  &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP &kp F12         &kp RBKT
 &kp TAB     &kp Q        &kp W        &kp E         &kp R          &kp T       &kp Y            &kp U         &kp I         &kp O        &kp P           &kp LBKT
 &kp ESCAPE  &hml LGUI A  &hml LALT S  &hml LCTRL D  &hml LSHFT F   &kp G       &kp H            &hmr RSHFT J  &hmr RCTRL K  &hmr RALT L  &hmr RGUI SEMI  &kp SQT
-&none       &kp Z        &kp X        &kp C         &kp V          &kp B       &kp N            &kp M         &kp COMMA     &kp DOT      &kp FSLH        &none
+&mo HYPR    &kp Z        &kp X        &kp C         &kp V          &kp B       &kp N            &kp M         &kp COMMA     &kp DOT      &kp FSLH        &mo HYPR
                                       &kp LCTRL     &ntd NAV 0     &kp BSLH    &mo FN           &bspc_del
-                                                    &lt SYM SPACE  &lt NUM LG(SPACE)  &lt HYPR ENTER
+                                                    &lt SYM SPACE  &lt NUM LG(SPACE)  &kp ENTER
             >;
         };
 
@@ -226,19 +245,21 @@
             >;
         };
 
-        // Hypr: держишь Enter → клавиши шлют готовые SUPER-комбо. Левая рука =
-        // воркспейсы (нумпад W-E-R/S-D-F/X-C-V = 7-9/4-6/1-3), правая = фокус hjkl.
-        // Shift на Lang-тумбе: с ним цифра/направление переносят окно.
-        // PrtSc на Space: Super+Print — скриншот-бинд.
+        // Hypr — «кокпит» управления окнами Hyprland. Входишь удержанием нижнего
+        // угла (&mo HYPR) свободной рукой. Верхний ряд = воркспейсы 1–9 одной
+        // строкой. Левый home = фокус (S◀ D▲ F▼ G▶ = Super+H/K/J/L), правый home
+        // = перенос окна (Super+Shift+hjkl), правый низ = ресайз (Super+Ctrl+hjkl).
+        // Левый тамб: Term/Run (низ), Kill/Shot/Shift (верх). Правый тамб: Pseu/
+        // Full/Flt, а Full+Flt вместе (combo) = Lock. Нужны бинды в hyprland.conf.
         hypr {
             display-name = "Hypr";
             bindings = <
-&trans  &trans  &trans      &trans      &trans      &trans    &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &trans    &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &trans    &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)  &trans  &trans
-&trans  &trans  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &trans    &trans     &trans     &trans     &trans     &trans  &trans
-                                        &trans  &trans  &trans    &trans  &trans
-                                &kp LG(PRINTSCREEN)  &kp LSHFT    &trans
+&trans  &trans      &trans      &trans      &trans      &trans        &trans         &trans         &trans         &trans         &trans  &trans
+&trans  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(N4)  &kp LG(N5)    &kp LG(N6)     &kp LG(N7)     &kp LG(N8)     &kp LG(N9)     &trans  &trans
+&trans  &trans      &kp LG(H)   &kp LG(K)   &kp LG(J)   &kp LG(L)     &kp LG(LS(H))  &kp LG(LS(J))  &kp LG(LS(K))  &kp LG(LS(L))  &trans  &trans
+&trans  &trans      &trans      &trans      &trans      &trans        &kp LG(LC(H))  &kp LG(LC(J))  &kp LG(LC(K))  &kp LG(LC(L))  &trans  &trans
+                                    &kp LG(Q)    &kp LG(PRINTSCREEN)  &kp LSHFT    &kp LG(P)  &kp LG(G)
+                                                 &kp LG(RET)          &kp LG(D)    &kp LG(F)
             >;
         };
 
@@ -250,8 +271,8 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp F     &kp T     &kp C      &kp M      &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans    &kp UP    &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &mkp LCLK  &mkp RCLK
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans    &trans    &trans     &mkp MB4   &mkp MB5
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT                 &kp DOWN  &kp RIGHT  &mkp LCLK  &mkp RCLK
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &scrl_ht SCROLL SCROLL   &trans    &trans     &mkp MB4   &mkp MB5
                         &trans  &trans  &trans    &none   &kp ESC
                                 &trans  &trans    &kp SPACE
             >;

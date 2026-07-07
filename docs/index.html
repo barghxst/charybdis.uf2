@@ -135,10 +135,11 @@
   </section>
 
   <section id="hypr">
-    <p class="eyebrow">layer 8 · hold Enter <span class="tag">work in progress</span></p>
-    <h2>Hypr</h2>
+    <p class="eyebrow">layer 8 · hold a bottom corner</p>
+    <h2>Hypr — window cockpit</h2>
     <div class="boardbox"><div class="board" id="b-hypr"></div></div>
-    <p class="note">Every key sends a ready-made <b>Super+…</b>: workspaces as a numpad on the left, hjkl focus on the right, window move — Shift on Lang, screenshot — Space.</p>
+    <p class="note">A full Hyprland cockpit on one layer. Enter it by <b>holding a bottom outer corner</b> with the free hand — right hand drives, hold the left corner; left hand drives, hold the right. Every key sends a ready-made <b>Super+…</b>: <b>workspaces 1–9</b> in one row up top, <b>focus</b> hjkl on the left home row and <b>move window</b> hjkl on the right home row (both on home, index finger leads down like vim), <b>resize</b> hjkl on the right bottom. <code>Shift</code> (left thumb) turns a workspace digit into <i>move-window-to-workspace</i>. Left thumb launches (Term/Run); right thumbs are <b>pseudo</b>, <b>fullscreen</b> and <b>float</b> — squeeze <b>fullscreen+float together to lock</b>.</p>
+    <p class="note">Needs these binds in <code>hyprland.conf</code> (not there yet): <code>Super+Shift+hjkl → movewindow</code>, <code>Super+Ctrl+hjkl → resizeactive</code>, <code>Super+G → fullscreen</code>. Drop the old <code>Super+Shift+h/l → movetoworkspace ±1</code> (it clashes with movewindow) and de-duplicate <code>Super+D</code>.</p>
   </section>
 
   <section id="onehand">
@@ -191,8 +192,8 @@ board('b-base',[
  [K('Esc',{t:'Esc — vim'}),
   K('A',{r:'ф',h:'gui',t:'Hold — Gui/Super (the Hyprland mod)'}),K('S',{r:'ы',h:'alt',t:'Hold — Alt'}),K('D',{r:'в',h:'ctrl',t:'Hold — Ctrl'}),K('F',{r:'а',h:'shift',t:'Hold — Shift'}),K('G',{r:'п'}),
   K('H',{r:'р'}),K('J',{r:'о',h:'shift',t:'Hold — Shift'}),K('K',{r:'л',h:'ctrl',t:'Hold — Ctrl'}),K('L',{r:'д',h:'alt',t:'Hold — Alt'}),K(';',{s:':',r:'ж',h:'gui',t:'Semicolon; Shift — colon; hold — Gui. Russian: ж'}),K("'",{s:'"',r:'э',t:'Quote; Shift — double quote. Russian: э'})],
- [NONE,K('Z',{r:'я'}),K('X',{r:'ч'}),K('C',{r:'с'}),K('V',{r:'м'}),K('B',{r:'и'}),
-  K('N',{r:'т'}),K('M',{r:'ь'}),K(',',{s:'<',r:'б',t:'Comma; Shift — <. Russian: б'}),K('.',{s:'>',r:'ю',t:'Period; Shift — >. Russian: ю'}),K('/',{s:'?',r:'. ,',t:'Slash; Shift — ?. Russian: tap — period, Shift — comma'}),NONE],
+ [K('Hypr',{h:'hold',t:'Hold — Hypr layer (window cockpit). Hold this corner with the free hand and drive with the other'}),K('Z',{r:'я'}),K('X',{r:'ч'}),K('C',{r:'с'}),K('V',{r:'м'}),K('B',{r:'и'}),
+  K('N',{r:'т'}),K('M',{r:'ь'}),K(',',{s:'<',r:'б',t:'Comma; Shift — <. Russian: б'}),K('.',{s:'>',r:'ю',t:'Period; Shift — >. Russian: ю'}),K('/',{s:'?',r:'. ,',t:'Slash; Shift — ?. Russian: tap — period, Shift — comma'}),K('Hypr',{h:'hold',t:'Hold — Hypr layer (window cockpit). Hold this corner with the free hand and drive with the other'})],
 ],{
  lu:[K('Ctrl',{t:'Plain Ctrl — vim chords with zero hold-tap latency'}),
      K('⇧ 1·2·3',{h:'nav',t:'Hold — Nav layer. Tap — sticky Shift, double tap — Caps Word, triple — Caps Lock'}),
@@ -200,7 +201,7 @@ board('b-base',[
  ll:[K('Space',{h:'sym',w:1,t:'Tap — space; hold — Sym layer. Tap-then-hold repeats space'}),
      K('Lang',{h:'num',w:1,t:'Tap — Super+Space (OS language switch); hold — Num layer'})],
  ru:[K('Fn',{h:'hold',t:'Hold — Fn layer: F-keys, bluetooth, service'}),K('Bspc',{h:'⇧ = del',t:'Backspace; Shift — Delete. Chord with Enter — the OneHand remote'})],
- rl:[K('Enter',{h:'hypr',w:1,t:'Tap — Enter; hold — Hypr layer (Super binds). Chord with Bspc — the OneHand remote'})]
+ rl:[K('Enter',{w:1,t:'Enter. Chord with Bspc — the OneHand remote'})]
 });
 
 board('b-nav',[
@@ -240,16 +241,23 @@ board('b-mouse',[
 
 board('b-hypr',[
  [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,TR,TR],
- [TR,TR,K('7',{t:'Workspace 7 (Super+7)'}),K('8',{t:'Workspace 8'}),K('9',{t:'Workspace 9'}),TR, TR,TR,TR,TR,TR,TR],
- [TR,TR,K('4',{t:'Workspace 4'}),K('5',{t:'Workspace 5'}),K('6',{t:'Workspace 6'}),TR, K('H',{t:'Focus left (Super+H)'}),K('J',{t:'Focus down'}),K('K',{t:'Focus up'}),K('L',{t:'Focus right'}),TR,TR],
- [TR,TR,K('1',{t:'Workspace 1'}),K('2',{t:'Workspace 2'}),K('3',{t:'Workspace 3'}),TR, TR,TR,TR,TR,TR,TR]
-],{lu:[TR,TR,TR],ll:[K('PrtSc',{h:'super',w:1,t:'Super+Print — the Hyprland screenshot bind'}),K('Shift',{h:'move',w:1,t:'Hold with Enter: digit/direction moves the window'})],ru:[TR,TR],rl:[K('Enter',{h:'held',w:1,t:'This key is being held — the layer is active'})]});
+ // workspaces 1–9 in one row across both halves
+ [TR,K('1',{t:'Workspace 1 (Super+1). With Shift: move window to ws 1'}),K('2',{t:'Workspace 2'}),K('3',{t:'Workspace 3'}),K('4',{t:'Workspace 4'}),K('5',{t:'Workspace 5'}),
+  K('6',{t:'Workspace 6'}),K('7',{t:'Workspace 7'}),K('8',{t:'Workspace 8'}),K('9',{t:'Workspace 9. With Shift: move window to ws 9'}),TR,TR],
+ // home row — left: FOCUS (side arrows point outward: S=◀ D=▲ F=▼ G=▶) · right: MOVE window (Super+Shift+hjkl)
+ [TR,TR,K('◀',{h:'focus',t:'Focus left — Super+H'}),K('▲',{h:'focus',t:'Focus up — Super+K'}),K('▼',{h:'focus',t:'Focus down — Super+J'}),K('▶',{h:'focus',t:'Focus right — Super+L'}),
+  K('◀',{h:'move',t:'Move window left — Super+Shift+H'}),K('▼',{h:'move',t:'Move window down — Super+Shift+J'}),K('▲',{h:'move',t:'Move window up — Super+Shift+K'}),K('▶',{h:'move',t:'Move window right — Super+Shift+L'}),TR,TR],
+ // bottom row — right: RESIZE (Super+Ctrl+hjkl); left free · outer corners hold the layer
+ [K('Hypr',{h:'held',t:'Hold a bottom corner to enter this layer — use the hand that is free'}),TR,TR,TR,TR,TR,
+  K('◀',{h:'size',t:'Narrower — Super+Ctrl+H'}),K('▼',{h:'size',t:'Taller — Super+Ctrl+J'}),K('▲',{h:'size',t:'Shorter — Super+Ctrl+K'}),K('▶',{h:'size',t:'Wider — Super+Ctrl+L'}),TR,
+  K('Hypr',{h:'held',t:'Hold a bottom corner to enter this layer — use the hand that is free'})]
+],{lu:[K('Kill',{w:1,t:'Close window — Super+Q'}),K('Shot',{h:'super',w:1,t:'Screenshot region — Super+Print. With Shift: annotate in swappy'}),K('Shift',{h:'mod',w:1,t:'Hold with a Hypr key: digit → move window to that ws; Shot → swappy'})],ll:[K('Term',{h:'super',w:1,t:'Terminal — Super+Enter (alacritty)'}),K('Run',{h:'super',w:1,t:'Launcher — Super+D (hyprlauncher)'})],ru:[K('Pseu',{h:'super',t:'Pseudo-tile — Super+P: stays tiled but keeps its own size'}),K('Full',{h:'super',t:'Fullscreen — Super+G. Squeeze both right thumbs together → lock (Super+C)'})],rl:[K('Flt',{h:'super',w:1,t:'Toggle floating — Super+F. Squeeze both right thumbs together → lock (Super+C)'})]});
 
 board('b-onehand',[
  [TR,TR,TR,TR,TR,TR, TR,K('F',{h:'full',t:'Fullscreen'}),K('T',{h:'theater',t:'Theater mode'}),K('C',{h:'subs',t:'Subtitles on/off'}),K('M',{h:'mute',t:'Player mute'}),TR],
  [TR,TR,TR,TR,TR,TR, TR,TR,K('↑',{h:'vol+',t:'Player volume up'}),TR,TR,TR],
  [TR,TR,TR,TR,TR,TR, TR,K('←',{h:'−5s',t:'Seek back 5 s'}),K('↓',{h:'vol−',t:'Player volume down'}),K('→',{h:'+5s',t:'Seek forward 5 s'}),K('LMB',{t:'Left click — works without moving the ball'}),K('RMB',{t:'Right click — works without moving the ball'})],
- [TR,TR,TR,TR,TR,TR, TR,TR,TR,TR,K('MB4',{h:'back',t:'Browser back — leave the video'}),K('MB5',{h:'fwd',t:'Browser forward'})]
+ [TR,TR,TR,TR,TR,TR, TR,K('Scrl',{h:'hold·tap',t:'Scroll layer — hold for a momentary scroll (ball scrolls while held), tap to toggle it on/off'}),TR,TR,K('MB4',{h:'back',t:'Browser back — leave the video'}),K('MB5',{h:'fwd',t:'Browser forward'})]
 ],{lu:[TR,TR,TR],ll:[TR,TR],ru:[NONE,K('Esc',{h:'toggle²',t:'Esc — exit fullscreen. Chord with Space — remote off'})],rl:[K('Space',{h:'pause',w:1,t:'Play/pause. Chord with Esc — remote off'})]});
 </script>
 </body>
