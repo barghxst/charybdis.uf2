@@ -247,8 +247,8 @@
 
         // Hypr — «кокпит» управления окнами Hyprland. Входишь удержанием нижнего
         // угла (&mo HYPR) свободной рукой. Верхний ряд = воркспейсы 1–9 одной
-        // строкой. Левый home = фокус (S◀ D▲ F▼ G▶ = Super+H/K/J/L), правый home
-        // = перенос окна (Super+Shift+hjkl), правый низ = ресайз (Super+Ctrl+hjkl).
+        // строкой. Левый home = перенос окна (Super+Shift+hjkl), правый home =
+        // фокус (Super+hjkl), правый низ = ресайз (Super+Ctrl+hjkl).
         // Левый тамб: Term/Run (низ), Kill/Shot/Shift (верх). Правый тамб: Pseu/
         // Full/Flt, а Full+Flt вместе (combo) = Lock. Нужны бинды в hyprland.conf.
         hypr {
@@ -256,7 +256,7 @@
             bindings = <
 &trans  &trans      &trans      &trans      &trans      &trans        &trans         &trans         &trans         &trans         &trans  &trans
 &trans  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(N4)  &kp LG(N5)    &kp LG(N6)     &kp LG(N7)     &kp LG(N8)     &kp LG(N9)     &trans  &trans
-&trans  &trans      &kp LG(H)   &kp LG(K)   &kp LG(J)   &kp LG(L)     &kp LG(LS(H))  &kp LG(LS(J))  &kp LG(LS(K))  &kp LG(LS(L))  &trans  &trans
+&trans  &trans      &kp LG(LS(H))  &kp LG(LS(K))  &kp LG(LS(J))  &kp LG(LS(L))     &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)  &trans  &trans
 &trans  &trans      &trans      &trans      &trans      &trans        &kp LG(LC(H))  &kp LG(LC(J))  &kp LG(LC(K))  &kp LG(LC(L))  &trans  &trans
                                     &kp LG(Q)    &kp LG(PRINTSCREEN)  &kp LSHFT    &kp LG(P)  &kp LG(G)
                                                  &kp LG(RET)          &kp LG(D)    &kp LG(F)

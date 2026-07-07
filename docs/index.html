@@ -138,7 +138,7 @@
     <p class="eyebrow">layer 8 · hold a bottom corner</p>
     <h2>Hypr — window cockpit</h2>
     <div class="boardbox"><div class="board" id="b-hypr"></div></div>
-    <p class="note">A full Hyprland cockpit on one layer. Enter it by <b>holding a bottom outer corner</b> with the free hand — right hand drives, hold the left corner; left hand drives, hold the right. Every key sends a ready-made <b>Super+…</b>: <b>workspaces 1–9</b> in one row up top, <b>focus</b> hjkl on the left home row and <b>move window</b> hjkl on the right home row (both on home, index finger leads down like vim), <b>resize</b> hjkl on the right bottom. <code>Shift</code> (left thumb) turns a workspace digit into <i>move-window-to-workspace</i>. Left thumb launches (Term/Run); right thumbs are <b>pseudo</b>, <b>fullscreen</b> and <b>float</b> — squeeze <b>fullscreen+float together to lock</b>.</p>
+    <p class="note">A full Hyprland cockpit on one layer. Enter it by <b>holding a bottom outer corner</b> with the free hand — right hand drives, hold the left corner; left hand drives, hold the right. Every key sends a ready-made <b>Super+…</b>: <b>workspaces 1–9</b> in one row up top, <b>move window</b> hjkl on the left home row and <b>focus</b> hjkl on the right home row (both on home, index finger leads down like vim), <b>resize</b> hjkl on the right bottom. <code>Shift</code> (left thumb) turns a workspace digit into <i>move-window-to-workspace</i>. Left thumb launches (Term/Run); right thumbs are <b>pseudo</b>, <b>fullscreen</b> and <b>float</b> — squeeze <b>fullscreen+float together to lock</b>.</p>
     <p class="note">Needs these binds in <code>hyprland.conf</code> (not there yet): <code>Super+Shift+hjkl → movewindow</code>, <code>Super+Ctrl+hjkl → resizeactive</code>, <code>Super+G → fullscreen</code>. Drop the old <code>Super+Shift+h/l → movetoworkspace ±1</code> (it clashes with movewindow) and de-duplicate <code>Super+D</code>.</p>
   </section>
 
@@ -244,9 +244,9 @@ board('b-hypr',[
  // workspaces 1–9 in one row across both halves
  [TR,K('1',{t:'Workspace 1 (Super+1). With Shift: move window to ws 1'}),K('2',{t:'Workspace 2'}),K('3',{t:'Workspace 3'}),K('4',{t:'Workspace 4'}),K('5',{t:'Workspace 5'}),
   K('6',{t:'Workspace 6'}),K('7',{t:'Workspace 7'}),K('8',{t:'Workspace 8'}),K('9',{t:'Workspace 9. With Shift: move window to ws 9'}),TR,TR],
- // home row — left: FOCUS (side arrows point outward: S=◀ D=▲ F=▼ G=▶) · right: MOVE window (Super+Shift+hjkl)
- [TR,TR,K('◀',{h:'focus',t:'Focus left — Super+H'}),K('▲',{h:'focus',t:'Focus up — Super+K'}),K('▼',{h:'focus',t:'Focus down — Super+J'}),K('▶',{h:'focus',t:'Focus right — Super+L'}),
-  K('◀',{h:'move',t:'Move window left — Super+Shift+H'}),K('▼',{h:'move',t:'Move window down — Super+Shift+J'}),K('▲',{h:'move',t:'Move window up — Super+Shift+K'}),K('▶',{h:'move',t:'Move window right — Super+Shift+L'}),TR,TR],
+ // home row — left: MOVE window (side arrows outward: S=◀ D=▲ F=▼ G=▶) · right: FOCUS hjkl
+ [TR,TR,K('◀',{h:'move',t:'Move window left — Super+Shift+H'}),K('▲',{h:'move',t:'Move window up — Super+Shift+K'}),K('▼',{h:'move',t:'Move window down — Super+Shift+J'}),K('▶',{h:'move',t:'Move window right — Super+Shift+L'}),
+  K('◀',{h:'focus',t:'Focus left — Super+H'}),K('▼',{h:'focus',t:'Focus down — Super+J'}),K('▲',{h:'focus',t:'Focus up — Super+K'}),K('▶',{h:'focus',t:'Focus right — Super+L'}),TR,TR],
  // bottom row — right: RESIZE (Super+Ctrl+hjkl); left free · outer corners hold the layer
  [K('Hypr',{h:'held',t:'Hold a bottom corner to enter this layer — use the hand that is free'}),TR,TR,TR,TR,TR,
   K('◀',{h:'size',t:'Narrower — Super+Ctrl+H'}),K('▼',{h:'size',t:'Taller — Super+Ctrl+J'}),K('▲',{h:'size',t:'Shorter — Super+Ctrl+K'}),K('▶',{h:'size',t:'Wider — Super+Ctrl+L'}),TR,
