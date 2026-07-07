@@ -1,0 +1,34 @@
+/*
+ * Central-side trackball processing, shared by the two central builds:
+ *   - charybdis_right   (bluetooth central) → local sensor  &trackball
+ *   - charybdis_dongle  (dongle central)    → split-forwarded &trackball_split
+ *
+ * The including overlay MUST `#define TRACKBALL_INPUT_DEVICE` to the phandle of
+ * the motion source before including this file. Keeping the processors here
+ * means auto-mouse / scroll / snipe behave identically in both modes.
+ */
+
+#include <dt-bindings/zmk/input_transform.h>
+
+/ {
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <TRACKBALL_INPUT_DEVICE>;
+
+        // Default: auto-activate the mouse layer (5) while moving; it drops
+        // 400 ms after motion stops. (Tune the timeout to taste.)
+        input-processors = <&zip_temp_layer 5 400>;
+
+        // Scroll layer (6): map XY motion to a scroll wheel, Y inverted.
+        scroll {
+            layers = <6>;
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+        };
+
+        // Snipe layer (7): 1/3 sensitivity for precision.
+        snipe {
+            layers = <7>;
+            input-processors = <&zip_xy_scaler 1 3>;
+        };
+    };
+};

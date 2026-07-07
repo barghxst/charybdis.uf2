@@ -4,9 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+/*
+ * charybdis_left — always a BLE peripheral, identical in both modes (talks to
+ * the right-half central in bluetooth mode, or to the dongle central in dongle
+ * mode). No trackball on this half.
+ */
+
 #include "charybdis.dtsi"
 
 &kscan0 {
+	compatible = "zmk,kscan-gpio-matrix";
+
 	col-gpios
 		= <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		, <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -15,4 +23,9 @@
 		, <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		, <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		;
+};
+
+// No trackball on the left half.
+&trackball_split {
+	status = "disabled";
 };

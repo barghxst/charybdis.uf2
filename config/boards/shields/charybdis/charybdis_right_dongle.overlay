@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2020 ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/*
+ * charybdis_right_dongle — DONGLE mode: the right half is a BLE peripheral that
+ * connects to the dongle central. Its trackball motion is forwarded to the
+ * central over the split; auto-mouse / scroll / snipe are applied on the dongle
+ * (see charybdis_dongle.overlay + trackball-input.dtsi).
+ */
+
+#include "charybdis.dtsi"
+#include "trackball-sensor.dtsi"
+
+&default_transform {
+    col-offset = <6>;
+};
+
+&kscan0 {
+	compatible = "zmk,kscan-gpio-matrix";
+
+	col-gpios
+		= <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		;
+};
+
+// Forward the local trackball's motion to the central (dongle) over the split.
+&trackball_split {
+    device = <&trackball>;
+};

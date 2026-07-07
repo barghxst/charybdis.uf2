@@ -1,17 +1,30 @@
+# Central roles. In bluetooth mode the right half is central; in dongle mode the
+# dongle is central and BOTH halves are peripherals. A given physical board only
+# ever builds one shield, so exactly one central is selected per firmware.
+
 if SHIELD_CHARYBDIS_RIGHT
 
 config ZMK_KEYBOARD_NAME
 	default "Charybdis"
 
-config ZMK_SPLIT_BLE_ROLE_CENTRAL
+config ZMK_SPLIT_ROLE_CENTRAL
 	default y
 
 endif
 
-if SHIELD_CHARYBDIS_LEFT || SHIELD_CHARYBDIS_RIGHT
+if SHIELD_CHARYBDIS_DONGLE
+
+config ZMK_KEYBOARD_NAME
+	default "Charybdis"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+	default y
+
+endif
+
+if SHIELD_CHARYBDIS_DONGLE || SHIELD_CHARYBDIS_LEFT || SHIELD_CHARYBDIS_RIGHT || SHIELD_CHARYBDIS_RIGHT_DONGLE
 
 config ZMK_SPLIT
 	default y
 
 endif
-

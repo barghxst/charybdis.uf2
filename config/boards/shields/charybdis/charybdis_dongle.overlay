@@ -1,0 +1,34 @@
+/*
+ * charybdis_dongle — DONGLE mode central. A third nice!nano plugged into the
+ * host over USB. It has no keys and no local trackball: both halves connect to
+ * it as BLE peripherals, and the right half forwards its trackball motion over
+ * the split into &trackball_split, which this build turns into HID.
+ */
+
+#include "charybdis.dtsi"
+
+/ {
+    chosen {
+        // Dongle has no physical keys; scanning is mocked. The matrix
+        // transform / physical layout come from charybdis.dtsi and map the
+        // key events forwarded from the two peripheral halves.
+        zmk,kscan = &mock_kscan;
+    };
+
+    mock_kscan: kscan_mock {
+        compatible = "zmk,kscan-mock";
+        columns = <0>;
+        rows = <0>;
+        events = <0>;
+    };
+};
+
+// On the dongle kscan0 is inert (no compatible), so point the physical
+// layout at the mock scanner instead — its kscan phandle must resolve to a
+// real device. The matrix transform still maps the forwarded key events.
+&physical_layout_0 {
+    kscan = <&mock_kscan>;
+};
+
+#define TRACKBALL_INPUT_DEVICE &trackball_split
+#include "trackball-input.dtsi"
