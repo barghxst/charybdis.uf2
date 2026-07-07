@@ -48,8 +48,12 @@
         // Orientation: replaces the old CONFIG_PMW3610_ORIENTATION_90 +
         // CONFIG_PMW3610_INVERT_X. Tweak swap-xy / invert-x / invert-y if the
         // cursor moves along the wrong axis or in the wrong direction.
+        // invert-y: pulling the ball down was moving the cursor up. This flips
+        // Y for everything downstream, so the scroll layer drops its own
+        // Y_INVERT to compensate (see trackball-input.dtsi).
         swap-xy;
         invert-x;
+        invert-y;
 
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
