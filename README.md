@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <b><a href="https://barghest0.github.io/charybdis.uf2/">→ Interactive layout reference</a></b> — every layer drawn, hover any key for details.
+  <b><a href="https://barghxst.github.io/charybdis.uf2/">→ Interactive layout reference</a></b> — every layer drawn, hover any key for details.
 </p>
 
 ## Highlights
